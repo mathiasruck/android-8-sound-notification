@@ -354,40 +354,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
 
-    public void createNotificationChannel2() {
-        NotificationCompat.Builder notificationCompatBuilder = new NotificationCompat.Builder(this, MathiasruckFcmHandler.CHANNEL_ID)
-                .setSmallIcon(R.drawable.googleg_standard_color_18)
-                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.Red))
-                .setContentTitle("inside")
-                .setContentText("inside")
-                .setBadgeIconType(Notification.BADGE_ICON_LARGE)
-                .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setCategory(Notification.CATEGORY_MESSAGE)
-                .setAutoCancel(true);
-
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            Uri notificationSoundUri = Uri.parse("android.resource://" + this.getPackageName() + "/" + R.raw.police_siren_sound);
-            if (notificationSoundUri != null) {
-                // Changing Default mode of notification
-                notificationCompatBuilder.setDefaults(Notification.DEFAULT_VIBRATE);
-
-                // Creating an Audio Attribute
-                AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                        .setUsage(AudioAttributes.USAGE_ALARM)
-                        .build();
-
-                // Creating Channel
-                CharSequence name = getString(R.string.notification_channel_01);
-                NotificationChannel notificationChannel = new NotificationChannel(MathiasruckFcmHandler.CHANNEL_ID, name, NotificationManager.IMPORTANCE_HIGH);
-                notificationChannel.setSound(notificationSoundUri, audioAttributes);
-                mNotificationManager.createNotificationChannel(notificationChannel);
-            }
-        }
-        mNotificationManager.notify(0, notificationCompatBuilder.build());
-    }
-
     public void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = getString(R.string.notification_channel_01);
@@ -421,7 +387,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // or other notification behaviors after this
             NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             mNotificationManager.createNotificationChannel(channel);
-//            mNotificationManager.notify(0, createNotification().build());
         }
     }
 }
